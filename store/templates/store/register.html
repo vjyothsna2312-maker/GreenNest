@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenNest | Register</title>
+
+```
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f1f7ef;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    .register-box {
+        background: white;
+        padding: 35px;
+        width: 350px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #28633c;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0 15px;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #28633c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    a {
+        color: #28633c;
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<div class="register-box">
+
+    <h2>Join GreenNest 🌱</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Create Account</button>
+    </form>
+
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+
+</div>
+```
+
+</body>
+</html>

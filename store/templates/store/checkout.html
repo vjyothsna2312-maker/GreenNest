@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenNest | Checkout</title>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f7ef;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 25px;
+            left: 30px;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #24613b;
+            color: white;
+            text-decoration: none;
+            font-size: 28px;
+            border-radius: 50%;
+        }
+
+        .back-button:hover {
+            background: #70a879;
+        }
+
+        .checkout-container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            color: #28633c;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 11px;
+            margin-top: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #28633c;
+            color: white;
+            padding: 13px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .order-summary {
+            background: #f4f8f3;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<a href="{% url 'home' %}"
+   onclick="if (document.referrer && new URL(document.referrer).origin === location.origin) { history.back(); return false; }"
+   class="back-button">
+    ←
+</a>
+
+<div class="checkout-container">
+
+    <h1>GreenNest Checkout 🌱</h1>
+
+    <div class="order-summary">
+        <h2>Order Summary</h2>
+
+        {% for item in cart_items %}
+            <p>
+                {{ item.product.name }} × {{ item.quantity }}
+                — ₹{{ item.subtotal }}
+            </p>
+        {% endfor %}
+
+        <h3>Total Amount: ₹{{ total }}</h3>
+    </div>
+
+    {% if not order %}
+
+        <h2>Delivery Details</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <label>Full Name</label>
+            <input type="text" name="full_name" required>
+
+            <label>Address</label>
+            <textarea name="address" required></textarea>
+
+            <label>City</label>
+            <input type="text" name="city" required>
+
+            <label>PIN Code</label>
+            <input type="text" name="pincode" maxlength="10" required>
+
+            <label>Phone Number</label>
+            <input type="tel" name="phone" maxlength="15" required>
+
+            <button type="submit">Proceed to Payment</button>
+        </form>
+
+    {% else %}
+
+        <h2>Complete Your Payment</h2>
+
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+        <p>Your order has been created. Please complete the payment.</p>
+
+        <button type="button" id="pay-button">
+            Pay ₹{{ total }} Now
+        </button>
+
+    {% endif %}
+
+</div>
+
+{% if order %}
+
+<script>
+
+    const options = {
+        key: "{{ razorpay_key_id|escapejs }}",
+
+        amount: "{{ amount }}",
+
+        currency: "INR",
+
+        name: "GreenNest",
+
+        description: "Plant Purchase",
+
+        modal: {
+            ondismiss: function () {
+                alert("Payment cancelled. Your order is still saved. You can try again.");
+            }
+        },
+
+        order_id: "{{ razorpay_order_id|escapejs }}",
+
+        theme: {
+            color: "#24613b"
+        },
+
+        handler: function (response) {
+
+            const form = document.createElement("form");
+
+            form.method = "POST";
+            form.action = "{% url 'verify_payment' %}";
+
+            const fields = {
+                "razorpay_order_id": response.razorpay_order_id,
+                "razorpay_payment_id": response.razorpay_payment_id,
+                "razorpay_signature": response.razorpay_signature,
+                "csrfmiddlewaretoken": "{{ csrf_token }}"
+            };
+
+            for (const key in fields) {
+                const input = document.createElement("input");
+
+                input.type = "hidden";
+                input.name = key;
+                input.value = fields[key];
+
+                form.appendChild(input);
+            }
+
+            document.body.appendChild(form);
+
+            form.submit();
+        }
+    };
+
+    const razorpay = new Razorpay(options);
+
+    document.getElementById("pay-button").onclick = function () {
+        razorpay.open();
+    };
+
+</script>
+
+{% endif %}
+
+</body>
+</html>

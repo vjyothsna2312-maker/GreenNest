@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenNest | Shopping Cart</title>
+
+
+<style>
+
+    .back-button {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #24613b;
+    color: white;
+    text-decoration: none;
+    font-size: 28px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.back-button:hover {
+    background: #70a879;
+    transform: translateX(-4px);
+}
+
+
+
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f8f3;
+        margin: 0;
+        padding: 40px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #28633c;
+    }
+
+    .cart-container {
+        max-width: 800px;
+        margin: 30px auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 18px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .total {
+        text-align: right;
+        font-size: 22px;
+        font-weight: bold;
+        color: #28633c;
+        margin-top: 25px;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: #28633c;
+        text-decoration: none;
+    }
+    .checkout-button {
+    display: inline-block;
+    background: #28633c;
+    color: white;
+    padding: 12px 22px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
+    }
+
+</style>
+
+
+</head>
+
+<body>
+
+<a href="{% url 'home' %}"
+   onclick="if (document.referrer && new URL(document.referrer).origin === location.origin) { history.back(); return false; }"
+   class="back-button">
+    ←
+</a>
+
+<h1>My Shopping Cart 🛒</h1>
+
+<div class="cart-container">
+
+    {% for item in cart_items %}
+
+    <div class="cart-item">
+        <div>
+            <h3>{{ item.product.name }}</h3>
+            <p>Quantity: {{ item.quantity }}</p>
+            <p>Price: ₹{{ item.product.price }}</p>
+        </div>
+
+        <div>
+            <strong>₹{{ item.subtotal }}</strong>
+            <form method="POST" action="{% url 'remove_from_cart' item.product.id %}">
+                {% csrf_token %}
+                <button type="submit">Remove</button>
+            </form>
+        </div>
+    </div>
+
+    {% empty %}
+
+    <p>Your shopping cart is empty!</p>
+
+    {% endfor %}
+
+    <div class="total">
+        Total: ₹{{ total }}
+    </div>
+
+    <a href="/" class="back-link">← Continue Shopping</a>
+    
+    <a href="{% url 'checkout' %}" class="checkout-button">
+    Proceed to Checkout
+    </a>
+</div>
+
+
+</body>
+</html>

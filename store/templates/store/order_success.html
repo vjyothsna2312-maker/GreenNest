@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenNest | Order Confirmed</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f7ef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .success-box {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            border-radius: 12px;
+            max-width: 500px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #28633c;
+        }
+
+        .success-icon {
+            font-size: 55px;
+        }
+
+        a {
+            display: inline-block;
+            background: #28633c;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="success-box">
+
+    <div class="success-icon">🌱</div>
+
+    {% if order.payment_status == 'Paid' %}
+
+        <h1>Payment Successful!</h1>
+        <p>Thank you for shopping with GreenNest.</p>
+
+        <h3>Order Number: {{ order.id }}</h3>
+        <h3>Total Amount: ₹{{ order.total_amount }}</h3>
+
+        <p>Payment Status: <strong>Paid</strong></p>
+        <p>Your plants will soon be on their way!</p>
+
+    {% else %}
+
+        <h1>Payment Not Completed</h1>
+        <p>Your order has not been confirmed yet.</p>
+        <p>Payment Status: {{ order.payment_status }}</p>
+
+    {% endif %}
+
+    <a href="/">Continue Shopping</a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,531 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenNest | Plant Nursery</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f9f4;
+        color: #263b2c;
+    }
+    
+    body {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    h1, h2, h3, .logo {
+        font-family: 'Playfair Display', serif;
+    }
+
+    .category {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    .categories h2 {
+        font-size: 38px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+
+
+    /* Navigation bar */
+    /* Navigation bar */
+
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 3%;
+        background: white;
+        flex-wrap: nowrap;
+        gap: 15px;
+    }
+
+    nav .logo {
+        font-size: 32px;
+        font-weight: bold;
+        color: #24613b;
+        white-space: nowrap;
+    }
+
+    nav div {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        white-space: nowrap;
+    }
+
+    nav a {
+        text-decoration: none;
+        color: #254d35;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    nav a:hover {
+        color: #70a879;
+    }
+
+    nav span {
+        white-space: nowrap;
+    }
+
+    nav button {
+        background: #24613b;
+        color: white;
+        border: none;
+        padding: 9px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    /* Hero section */
+    .hero {
+        min-height: 480px;
+        display: flex;
+        align-items: center;
+        padding: 60px 10%;
+        background: linear-gradient(120deg, #dcebd8, #f4f7ed);
+    }
+
+    .hero h1 {
+        font-size: 52px;
+        max-width: 550px;
+        margin-bottom: 20px;
+    }
+
+    .hero p {
+        font-size: 18px;
+        line-height: 1.7;
+        margin-bottom: 30px;
+    }
+
+    .btn {
+        display: inline-block;
+        background-color: #28633c;
+        color: white;
+        padding: 14px 30px;
+        border-radius: 6px;
+        text-decoration: none;
+    }
+
+    /* Categories */
+    .categories {
+    padding: 70px 8%;
+    text-align: center;
+    background: #f5f8f1;
+}
+
+.categories h2 {
+    font-size: 36px;
+    color: #245c35;
+    margin-bottom: 45px;
+}
+
+.category-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.category {
+    width: 250px;
+    min-height: 210px;
+    background: white;
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #245c35;
+    font-size: 21px;
+    font-weight: bold;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.category span {
+    font-size: 65px;
+}
+
+.category:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(36, 92, 53, 0.15);
+    background: #eaf4e5;
+}
+
+
+
+    /* Products section */
+.products {
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.products h2 {
+    font-size: 32px;
+    margin-bottom: 35px;
+}
+
+.product-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.product-card {
+    background: white;
+    width: 250px;
+    border-radius: 12px;
+    overflow: hidden;
+    padding-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.product-card h3 {
+    margin: 15px 0 8px;
+}
+
+.product-card p {
+    color: #52745a;
+    margin-bottom: 12px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #28633c;
+    margin-bottom: 15px;
+}
+
+.product-card button {
+    background: #28633c;
+    color: white;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+
+    /* Footer */
+    footer {
+        background: #214b30;
+        color: white;
+        text-align: center;
+        padding: 25px;
+    }
+
+.contact-section {
+    padding: 70px 8%;
+    text-align: center;
+    background: #f0f6ed;
+}
+
+.contact-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    color: #245c35;
+}
+
+.contact-section > p {
+    color: #647568;
+    font-size: 16px;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin: 40px 0;
+}
+
+.contact-card {
+    background: white;
+    padding: 30px;
+    width: 280px;
+    border-radius: 18px;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+}
+
+.contact-card span {
+    font-size: 35px;
+}
+
+.contact-card h3 {
+    color: #245c35;
+}
+
+.contact-card a {
+    color: #477c56;
+    text-decoration: none;
+}
+
+.contact-card a:hover {
+    text-decoration: underline;
+}
+
+.contact-footer {
+    font-style: italic;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+    background: #245c35;
+    color: white;
+}
+
+.about-section {
+    padding: 80px 10%;
+    background: #eaf3e6;
+    text-align: center;
+}
+
+.about-content {
+    max-width: 850px;
+    margin: auto;
+}
+
+.about-label {
+    color: #6b956e;
+    font-size: 14px;
+    letter-spacing: 3px;
+    font-weight: 600;
+}
+
+.about-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    color: #245c35;
+    margin: 20px 0;
+}
+
+.about-section p {
+    font-size: 17px;
+    line-height: 1.9;
+    color: #53675a;
+}
+
+.about-section h3 {
+    font-family: 'Playfair Display', serif;
+    color: #39764b;
+    margin-top: 30px;
+}
+
+
+
+</style>
+
+
+</head>
+
+<body>
+
+
+<nav>
+    <div class="logo">🌿 GreenNest</div>
+
+    <div>
+        <a href="/">Home</a>
+        <a href="#categories">Categories</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+        <a href="{% url 'cart' %}">🛒 Cart</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'my_orders' %}">My Orders</a>
+
+        <span>Welcome, {{ user.username }}!</span>
+
+        <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+
+        {% else %}
+
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+
+        {% endif %}
+    </div>
+</nav>
+
+<section class="hero">
+    <div>
+        <h1>Bring Nature Into Your Home</h1>
+
+        <p>
+            Discover beautiful indoor and outdoor plants.
+            Make your surroundings greener, fresher and happier
+            with GreenNest.
+        </p>
+
+        <a href="#categories" class="btn">Explore Plants</a>
+    </div>
+</section>
+
+<section class="categories" id="categories">
+
+    <h2>Explore Our Plant Categories</h2>
+
+    <div class="category-container">
+
+        <a href="{% url 'category' 'Indoor Plants' %}" class="category">
+            <span>🪴</span>
+            Indoor Plants
+        </a>
+
+        <a href="{% url 'category' 'Flowering Plants' %}" class="category">
+             <span>🌼</span>
+            Flowering Plants
+        </a>
+
+        <a href="{% url 'category' 'Outdoor Plants' %}" class="category">
+            <span>🌿</span>
+            Outdoor Plants
+        </a>
+
+        
+
+    </div>
+
+</section>
+<section class="products" id="shop">
+
+    <h2>Our Bestselling Plants 🌿</h2>
+
+    <div class="product-container">
+
+        {% for product in products %}
+
+<div class="product-card">
+
+    <img src="{% static product.image %}" alt="{{ product.name }}">
+
+    <h3>{{ product.name }}</h3>
+
+    <p>{{ product.description }}</p>
+
+    <div class="price">₹{{ product.price }}</div>
+
+    <form method="POST" action="{% url 'add_to_cart' product.id %}">
+    {% csrf_token %}
+
+    <label>Quantity:</label>
+
+    <input type="number" name="quantity" value="1" min="1" max="10">
+
+    <button type="submit">Add to Cart</button>
+</form>
+
+</div>
+
+{% empty %}
+
+<p>No plants available currently.</p>
+
+{% endfor %}
+
+    </div>
+
+</section>
+<section id="about" class="about-section">
+
+    <div class="about-content">
+
+        <span class="about-label">OUR STORY 🌱</span>
+
+        <h2>A Little More About GreenNest</h2>
+
+        <p>
+            At GreenNest, we believe that every home deserves a touch of nature.
+            Our goal is to make plant shopping simple, enjoyable and accessible
+            for everyone.
+        </p>
+
+        <p>
+            From beautiful indoor greens to colourful flowering plants and
+            garden favourites, we bring nature closer to you, one plant at a time.
+        </p>
+
+        <h3>Grow Green. Live Happy. 🌿</h3>
+
+    </div>
+
+</section>
+
+<section id="contact" class="contact-section">
+
+    <h2>Let's Stay Connected 💚</h2>
+
+    <p>Have questions about our plants? We'd love to hear from you!</p>
+
+    <div class="contact-container">
+
+        <div class="contact-card">
+            <span>📧</span>
+            <h3>Email Us</h3>
+            <a href="mailto:jyothsnav2004@gmail.com">
+                jyothsnav2004@gmail.com
+            </a>
+        </div>
+
+        <div class="contact-card">
+            <span>📞</span>
+            <h3>Call Us</h3>
+            <a href="tel:+918309442157">
+                8309442157
+            </a>
+        </div>
+
+    </div>
+
+    <p class="contact-footer">
+        Growing happiness, one plant at a time. 🌱
+    </p>
+
+</section>
+
+<footer>
+    <p>© 2026 GreenNest. Grow Green, Live Green.</p>
+</footer>
+
+
+</body>
+</html>
